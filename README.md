@@ -20,9 +20,9 @@ GitHub Action that posts a message to a Slack channel
 
 ```
 - name: Post Slack message
-  uses: ynab/slack-post-action@v1
+  uses: ynab/slack-post-message-action@v1
   with:
     token: ${{ secrets.SLACK_API_TOKEN }}
     channel: "#general"
-    text: ":tada: This is a test from the ${{env.GITHUB_ACTION}} workflow! <https://github.com/ynab/slack-post-action|Action Documentation>"
+    text: ":tada: This is a test from the ${{env.GITHUB_ACTION}} workflow! <https://github.com/ynab/slack-post-message-action|Action Documentation>"
 ```
