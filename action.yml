@@ -2,8 +2,8 @@ name: 'Slack Post Message Action'
 description: 'GitHub Action that posts a message to a Slack channel'
 inputs:
   token:
-    description: "The Slack auth token"
-    required: true
+    description: "The Slack auth token.  This is only required if environment variable SLACK_BOT_TOKEN is not set."
+    required: false
   channel:
     description: "The channel name to post to"
     required: true    
@@ -17,6 +17,6 @@ runs:
   using: 'composite'
   steps:
     - run: |
-        curl -X POST -H "Authorization: Bearer ${{ inputs.token }}" -H "Content-Type: application/json" --url https://slack.com/api/chat.postMessage \
+        curl -X POST -H "Authorization: Bearer ${{ env.SLACK_BOT_TOKEN || inputs.token }}" -H "Content-Type: application/json" --url https://slack.com/api/chat.postMessage \
           -d "{\"channel\": \"${{ inputs.channel }}\", \"text\":\"${{ inputs.text }}\"}"
       shell: bash
