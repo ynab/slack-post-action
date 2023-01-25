@@ -24,5 +24,5 @@ GitHub Action that posts a message to a Slack channel
   with:
     token: ${{ secrets.SLACK_API_TOKEN }}
     channel: "#general"
-    text: ":tada: This is a test from the $GITHUB_ACTION} workflow! <https://github.com/ynab/slack-post-message-action|Action Documentation>"
+    text: ":tada: This is a test from the $GITHUB_ACTION workflow! <https://github.com/ynab/slack-post-message-action|Action Documentation>"
 ```
