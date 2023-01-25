@@ -1,4 +1,4 @@
-name: 'Slack Post Action'
+name: 'Slack Post Message Action'
 description: 'GitHub Action that posts a message to a Slack channel'
 inputs:
   token:
