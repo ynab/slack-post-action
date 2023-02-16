@@ -17,6 +17,6 @@ runs:
   using: 'composite'
   steps:
     - run: |
-        curl -X POST -H "Authorization: Bearer ${{ env.SLACK_BOT_TOKEN || inputs.token }}" -H "Content-Type: application/json" --url https://slack.com/api/chat.postMessage \
+        curl --silent --show-error -X POST -H "Authorization: Bearer ${{ env.SLACK_BOT_TOKEN || inputs.token }}" -H "Content-Type: application/json" --url https://slack.com/api/chat.postMessage \
           -d "{\"channel\": \"${{ inputs.channel }}\", \"text\":\"${{ inputs.text }}\"}"
       shell: bash
