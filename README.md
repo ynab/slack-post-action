@@ -18,7 +18,7 @@ GitHub Action that posts a message to a Slack channel
 
 ## Example usage
 
-```
+```yaml
 - name: Post Slack message
   uses: ynab/slack-post-message-action@v1
   with:
