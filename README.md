@@ -20,7 +20,7 @@ GitHub Action that posts a message to a Slack channel
 
 ```yaml
 - name: Post Slack message
-  uses: ynab/slack-post-message-action@v1
+  uses: ynab/slack-post-message-action@v1.1
   with:
     token: ${{ secrets.SLACK_API_TOKEN }}
     channel: "#general"
