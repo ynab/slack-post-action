@@ -30,7 +30,7 @@ The timestamp ID of the message (can be used to make subsequent Slack messages a
 
 ```yaml
 - name: Post Slack message
-  uses: ynab/slack-post-message-action@v1.1
+  uses: ynab/slack-post-message-action@v1.2
   with:
     token: ${{ secrets.SLACK_API_TOKEN }}
     channel: "#general"
