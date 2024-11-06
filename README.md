@@ -12,7 +12,7 @@ GitHub Action that posts a message to a Slack channel
 
 **Required** The channel name to post to (example: `#general`)
 
-#### `thread_ts`
+### `thread_ts`
 
 **Optional** The timestamp ID of the parent message to reply to (e.g., the `ts` output from a previous Slack message call)
 
