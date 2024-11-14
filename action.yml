@@ -26,7 +26,8 @@ branding:
 runs:
   using: 'composite'
   steps:
-    - run: |
+    - shell: bash
+      run: |
         response=$(curl --fail-with-body --silent --show-error \
           --request POST \
           --header "Authorization: Bearer ${{ env.SLACK_BOT_TOKEN || inputs.token }}" \
@@ -40,4 +41,3 @@ runs:
           echo "$response" | jq --raw-output '.ts'
           echo "EOF"
         } >> "$GITHUB_OUTPUT"
-      shell: bash
