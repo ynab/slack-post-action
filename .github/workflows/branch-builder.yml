@@ -1,0 +1,31 @@
+name: Branch Builder
+
+on:
+    pull_request:
+      types: [opened, reopened, synchronize]
+    push:
+      branches: [ main ]
+      tags-ignore: "**"
+    workflow_dispatch:
+env:
+  BRANCH_NAME: ${{ github.head_ref || github.ref_name }} # github.head_ref for pull_request event and github.ref_name for push event
+  SLACK_BOT_TOKEN: ${{ secrets.SLACK_TEST_TOKEN }}
+  SLACK_CHANNEL_ID: ${{ secrets.SLACK_TEST_CHANNEL_ID }}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test Slack message with default settings
+        id: basic-message
+        uses: ./
+        with:
+          channel: ${{ env.SLACK_CHANNEL_ID }}
+          text: 'Test message from <https://github.com/${{ github.repository }}|`${{ github.repository }}`>:\n\nMessage sent from: <https://github.com/${{ github.repository }}/compare/main...${{ env.BRANCH_NAME }}|`${{ env.BRANCH_NAME }}`>\nWorkflow Log: <https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|Run ${{ github.run_id }}>'
+      - name: Test Slack message with optional inputs specified (reply message + unfurl_links disabled)
+        uses: ./
+        with:
+          channel: ${{ env.SLACK_CHANNEL_ID }}
+          thread_ts: ${{ steps.basic-message.outputs.ts }}
+          text: 'Test reply with a link to unfurl (that should _not_ unfurl): <https://aus.youneedabudget.com/|YNAB AU Marketing Site>'
+          unfurl_links: false
