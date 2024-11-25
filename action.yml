@@ -20,24 +20,30 @@ inputs:
 outputs:
   ts:
     description: "The timestamp ID of the message that was just posted"
+    value: ${{steps.slack-post-message.outputs.ts}}
 branding:
   icon: 'tag'
   color: 'blue'
 runs:
   using: 'composite'
   steps:
-    - shell: bash
+    - name: Validate required inputs
+      shell: bash
+      run: |
+        [[ "${{ inputs.channel }}" ]] || { echo "required input 'channel' not specified" ; exit 1; }
+        [[ "${{ inputs.text }}" ]] || { echo "required input 'text' not specified" ; exit 1; }
+    - name: POST to chat.postMessage API
+      id: slack-post-message
+      shell: bash
       run: |
         response=$(curl --fail-with-body --silent --show-error \
           --request POST \
           --header "Authorization: Bearer ${{ env.SLACK_BOT_TOKEN || inputs.token }}" \
           --header "Content-Type: application/json; charset=utf-8" \
           --url https://slack.com/api/chat.postMessage \
-          --data "{\"channel\": \"${{ inputs.channel }}\", \"thread_ts\": \"${{ inputs.thread_ts }}\", \"unfurl_links\": ${{ inputs.unfurl_links }}, \"text\": \"${{ inputs.text }}\"}" \
+          --data '{"channel": "${{ inputs.channel }}", "thread_ts": "${{ inputs.thread_ts }}", "unfurl_links": ${{ inputs.unfurl_links }}, "text": "${{ inputs.text }}"}' \
         )
-        echo "Slack API response:\n$response"
-        {
-          echo "ts<<EOF"
-          echo "$response" | jq --raw-output '.ts'
-          echo "EOF"
-        } >> "$GITHUB_OUTPUT"
+        echo "Slack message API response:\n$response"
+        ts=$(echo "$response" | jq --raw-output '.ts')
+        echo "Setting ts output to $ts"
+        echo "ts=$ts" >> $GITHUB_OUTPUT
