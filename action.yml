@@ -41,7 +41,7 @@ runs:
           --header "Authorization: Bearer ${{ env.SLACK_BOT_TOKEN || inputs.token }}" \
           --header "Content-Type: application/json; charset=utf-8" \
           --url https://slack.com/api/chat.postMessage \
-          --data '{"channel": "${{ inputs.channel }}", "thread_ts": "${{ inputs.thread_ts }}", "unfurl_links": ${{ inputs.unfurl_links }}, "text": "${{ inputs.text }}"}' \
+          --data $'{"channel": "${{ inputs.channel }}", "thread_ts": "${{ inputs.thread_ts }}", "unfurl_links": ${{ inputs.unfurl_links }}, "text": "${{ inputs.text }}"}' \
         )
         echo "Slack message API response:\n$response"
         ts=$(echo "$response" | jq --raw-output '.ts')
