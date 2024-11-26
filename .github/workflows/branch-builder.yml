@@ -29,3 +29,10 @@ jobs:
           thread_ts: ${{ steps.basic-message.outputs.ts }}
           text: 'Test reply with a link to unfurl (that should _not_ unfurl): <https://aus.youneedabudget.com/|YNAB AU Marketing Site>'
           unfurl_links: false
+      - name: Test Slack message with various text formatting
+        uses: ./
+        with:
+          channel: ${{ env.SLACK_CHANNEL_ID }}
+          thread_ts: ${{ steps.basic-message.outputs.ts }}
+          text: "Test various text formatting:\n• Single quotes must be escaped \\' (b/c bash)\n• literal emoji 😀\n• colon-formatted emoji :blob-wave:\n• *bold text*\n• _italicized text_\n• ~strikethrough text~\n• `inline code`\n• Automatically linked text www.ynab.com\n• Link with <http://www.ynab.com|custom text>\n>Block quote\n```Multi-line\ncode```"
+          unfurl_links: false
