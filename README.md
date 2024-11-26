@@ -18,7 +18,7 @@ GitHub Action that posts a message to a Slack channel
 
 ### `text`
 
-**Required** The message text to post
+**Required** The message text to post. See [Slack's documentation on formatting](https://api.slack.com/reference/surfaces/formatting#basic-formatting). Note that single quotes in your message *must* be escaped as `\'` due to how this input is consumed by bash.
 
 ### `unfurl_links`
 
