@@ -20,6 +20,10 @@ GitHub Action that posts a message to a Slack channel
 
 **Required** The message text to post
 
+### `unfurl_links`
+
+**Optional** Whether links in the message should be unfurled (default: `true`)
+
 ## Outputs
 
 ### `ts`
@@ -30,7 +34,7 @@ The timestamp ID of the message (can be used to make subsequent Slack messages a
 
 ```yaml
 - name: Post Slack message
-  uses: ynab/slack-post-message-action@v1.2
+  uses: ynab/slack-post-message-action@v1.3
   with:
     token: ${{ secrets.SLACK_API_TOKEN }}
     channel: "#general"
