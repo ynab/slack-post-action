@@ -22,7 +22,7 @@ GitHub Action that posts a message to a Slack channel
     
 Notes:
   - single quotes in your message *must* be escaped as `\'` due to how this input is consumed by bash (example: `text: "This is a \'single quote\' test"`)
-  - environment variables will only be expanded if referenced using the `env` GitHub Action context `${{ env.MY_VAR }}` format (example: `text: "This is the value of MY_VAR: ${{ env.MY_VAR }} "`)
+  - environment variables will only be expanded if referenced using the `env` GitHub Action context `${{ env.MY_VAR }}` format (example: `text: "This is the value of MY_VAR: ${{ env.MY_VAR }}"`)
 
 ### `unfurl_links`
 
