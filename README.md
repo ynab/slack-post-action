@@ -18,7 +18,11 @@ GitHub Action that posts a message to a Slack channel
 
 ### `text`
 
-**Required** The message text to post. See [Slack's documentation on formatting](https://api.slack.com/reference/surfaces/formatting#basic-formatting). Note that single quotes in your message *must* be escaped as `\'` due to how this input is consumed by bash.
+**Required** The message text to post. See [Slack's documentation on formatting](https://api.slack.com/reference/surfaces/formatting#basic-formatting).
+    
+Notes:
+  - single quotes in your message *must* be escaped as `\'` due to how this input is consumed by bash (example: `text: "This is a \'single quote\' test"`)
+  - environment variables will only be expanded if passed in `${{ env.MY_VAR }}` format (example: `text: "This is the value of MY_VAR: ${{ env.MY_VAR }} "`)
 
 ### `unfurl_links`
 
@@ -38,5 +42,5 @@ The timestamp ID of the message (can be used to make subsequent Slack messages a
   with:
     token: ${{ secrets.SLACK_API_TOKEN }}
     channel: "#general"
-    text: ":tada: This is a test from the $GITHUB_ACTION workflow! <https://github.com/ynab/slack-post-message-action|Action Documentation>"
+    text: ":tada: This is a test from the ${{ env.GITHUB_ACTION }} workflow! <https://github.com/ynab/slack-post-message-action|Action Documentation>"
 ```
